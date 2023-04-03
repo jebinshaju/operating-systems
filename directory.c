@@ -24,3 +24,19 @@ void main()
 		}
 	}
 }
+
+/*
+Enter the directory name: we
+Name:.
+type:4
+File no:1443330
+Name:gg
+type:4
+File no:1443374
+Name:h
+type:4
+File no:1443170
+Name:..
+type:4
+File no:1442314
+/

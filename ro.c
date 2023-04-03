@@ -95,3 +95,20 @@ int main()
 	*/
     return 0;
 }
+
+/*
+Enter the no.of processes : 3
+Enter the time quantum : 2
+Enter the process ID : 1
+Enter the burst time : 4
+Enter the process ID : 2
+Enter the burst time : 7
+Enter the process ID : 3
+Enter the burst time : 9
+Process ID		Burst Time		Turnaround Time		Waiting Time
+1			4			8			4
+2			7			17			10
+3			9			20			11
+Average waiting time is 8.33 
+Average turnaroundtime is 15.00
+*/
