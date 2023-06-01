@@ -13,6 +13,23 @@ struct Process
 	int frees;
 }P[10];
 
+void sort(int n)
+{
+	int i,j;
+	struct block temp;
+	for(i=0;i<n-1;i++)
+	{
+		for(j=i+1;j<n;j++)
+		{
+			if(B[i].size>B[j].size)
+			{
+				temp=B[i];
+				B[i]=B[j];
+				B[j]=temp;
+			}
+		}
+	}
+}	
 int main()
 {
 	int m,n,i,j;
@@ -36,16 +53,20 @@ int main()
 	}
 	for(i=0;i<n;i++)
 	{
+		sort(m);
 		for(j=0;j<m;j++)
 		{
 			if(B[j].alloc!=1 && B[j].size>=P[i].size)
 			{
+				
 				P[i].blockno=B[j].id;
 				B[j].size=B[j].size-P[i].size;
 				P[i].frees=B[j].size;
+				P[i].frees=B[j].size;
 				if(B[j].size==0)
 					B[j].alloc=1;
-				break;
+					break;
+					
 			}
 		}
 		if(P[i].blockno==0)
@@ -58,13 +79,5 @@ int main()
 	
 		printf("\n%d\t%d\t%d\t\t%d\n",P[i].id,P[i].size,P[i].blockno,P[i].frees);
 	}
-	
+		
 }
-
-
-
-
-
-
-
-
