@@ -1,100 +1,93 @@
 #include <stdio.h>
-struct process
+struct Process
 {
-	int pid;
-	int TAT;
-	int BT;
-	int bt;
-	int WT;
-} p[10];
+	int id;         // Process ID
+	int turnaround; // Turnaround Time
+	int burst_time; // Burst Time (initial)
+	int remaining_burst_time; // Remaining Burst Time
+	int waiting_time; // Waiting Time
+} processes[10];     // Array of processes
+
 int main()
 {
-	int i, n, ts, x, y, wt, tat;
-	double avgwt, avgtat;
-	printf("Enter the no.of processes : ");
-	scanf("%d", &n);
-	printf("Enter the time quantum : ");
-	scanf("%d", &ts);
+	int i, num_processes, time_quantum, current_time = 0, completed_processes = 0, total_waiting_time = 0, total_turnaround_time = 0;
+	double avg_waiting_time, avg_turnaround_time;
 
-	for (i = 0; i < n; i++)
+	// Input number of processes and time quantum
+	printf("Enter the number of processes: ");
+	scanf("%d", &num_processes);
+	printf("Enter the time quantum: ");
+	scanf("%d", &time_quantum);
+
+	// Input process details
+	for (i = 0; i < num_processes; i++)
 	{
-		printf("Enter the process ID : ");
-		scanf("%d", &p[i].pid);
-		printf("Enter the burst time : ");
-		scanf("%d", &p[i].BT);
-		p[i].bt = p[i].BT;
+		printf("Enter the Process ID: ");
+		scanf("%d", &processes[i].id);
+		printf("Enter the Burst Time: ");
+		scanf("%d", &processes[i].burst_time);
+		processes[i].remaining_burst_time = processes[i].burst_time; // Initialize remaining burst time
 	}
-	x = 0, y = 0, i = 0;
+
+	// Perform Round Robin Scheduling
+	i = 0;
 	while (1)
 	{
-		if (p[i].bt != 0)
+		if (processes[i].remaining_burst_time != 0)
 		{
-			if (p[i].bt >= ts)
+			if (processes[i].remaining_burst_time >= time_quantum)
 			{
-				x = x + ts;
-				p[i].bt = p[i].bt - ts;
+				current_time = current_time + time_quantum; // Increment time by time quantum
+				processes[i].remaining_burst_time = processes[i].remaining_burst_time - time_quantum; // Reduce remaining burst time
 			}
 			else
 			{
-				x = x + p[i].bt;
-				p[i].bt = 0;
+				current_time = current_time + processes[i].remaining_burst_time; // Increment time by remaining burst time
+				processes[i].remaining_burst_time = 0; // Process is done
 			}
-			if (p[i].bt == 0)
+
+			if (processes[i].remaining_burst_time == 0)
 			{
-				p[i].TAT = x;
-				y++;
-				if (y == n)
-					break;
+				processes[i].turnaround = current_time; // Set turnaround time for the process
+				completed_processes++; // Increment completed process count
+				if (completed_processes == num_processes)
+					break; // All processes are completed
 			}
 		}
-		if (i == n - 1)
-			i = 0;
+
+		if (i == num_processes - 1)
+			i = 0; // Loop back to the first process
 		else
-			i++;
+			i++; // Move to the next process
 	}
-	for (i = 0; i < n; i++)
-	{
-		p[i].WT = p[i].TAT - p[i].BT;
-	}
-	printf("Process ID\t\tBurst Time\t\tTurnaround Time\t\tWaiting Time\n");
-	for (i = 0; i < n; i++)
-	{
-		printf("%d\t\t\t%d\t\t\t%d\t\t\t%d\n", p[i].pid, p[i].BT, p[i].TAT, p[i].WT);
-		wt = wt + p[i].WT;
-		tat = tat + p[i].TAT;
-	}
-	avgwt = (double)wt / n;
-	avgtat = (double)tat / n;
-	printf("Average waiting time is %.2f \n", avgwt);
-	printf("Average turnaroundtime is %.2f\n", avgtat);
 
-	/*for(i=0;i<n;i++)
+	// Calculate waiting time for each process and total times
+	for (i = 0; i < num_processes; i++)
 	{
-		printf("|---------------");
+		processes[i].waiting_time = processes[i].turnaround - processes[i].burst_time;
+		total_waiting_time = total_waiting_time + processes[i].waiting_time;
+		total_turnaround_time = total_turnaround_time + processes[i].turnaround;
+	}
 
-	}
-	printf("|\n");
-	for(i=0;i<n;i++)
-	{
-		printf("|\t%d\t",p[i].pid);
-	}
-	printf("|\n");
-	for(i=0;i<n;i++)
-	{
-		printf("|---------------");
+	// Calculate average waiting time and average turnaround time
+	avg_waiting_time = (double)total_waiting_time / num_processes;
+	avg_turnaround_time = (double)total_turnaround_time / num_processes;
 
-	}
-	printf("|\n");
-	printf("0");
-	for(i=0;i<n;i++)
+	// Display process details and average times
+	printf("Process ID\tBurst Time\tTurnaround Time\tWaiting Time\n");
+	for (i = 0; i < num_processes; i++)
 	{
-		printf("\t\t%d",p[i].TAT);
-
+		printf("%d\t\t%d\t\t%d\t\t%d\n", processes[i].id, processes[i].burst_time, processes[i].turnaround, processes[i].waiting_time);
 	}
-	printf("\n");
-	*/
+
+	printf("Average Waiting Time is %.2f\n", avg_waiting_time);
+	printf("Average Turnaround Time is %.2f\n", avg_turnaround_time);
+
 	return 0;
 }
+
+
+
 
 /*
 Enter the no.of processes : 3
@@ -113,7 +106,7 @@ Average waiting time is 8.33
 Average turnaroundtime is 15.00
 */
 
-
+/*
 
 #include <stdio.h>
 

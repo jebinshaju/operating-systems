@@ -42,7 +42,7 @@ int main()
 			k++;
 		}
 	}
-	
+	 
 	for (i=0;i<k-1;i++)
 	{
 		for (j=0;j<k-i-1;j++)

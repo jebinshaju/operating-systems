@@ -7,9 +7,9 @@ int main()
 	scanf("%d",&n);
 	
 	for(i=0;i<n;i++)
-	{
+	{ 
 		printf("Enter the Request %d:",i+1);
-		scanf("%d",&d[i]);
+		scanf("%d, ",&d[i]);
 	}
 	printf("Enter the head position: ");
 	scanf("%d",&head);
@@ -18,6 +18,7 @@ int main()
 	{
 		hm=hm+abs(d[i]-head);
 		head=d[i];
+		printf("%d",d[i]);
 	}
 	printf("\nNumber of sweeps: %d",hm);
 	
