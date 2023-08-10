@@ -1,48 +1,73 @@
-#include<stdio.h>
-int main(){
-        int i,j,k,flag=0;
-        int f[20],p[20],f0,p0,count = 0,x=0;
-        
-        printf("Enter the number frames: ");
-        scanf("%d",&f0);
-        printf("Enter the number pages: ");
-        scanf("%d",&p0);
-        
-        printf("Enter the page refernces: ");
-        for(i=0;i<p0;i++){
-                
-                scanf("%d",&p[i]);
+#include <stdio.h>
+
+int main()
+{
+        int i, j, k, flag = 0;
+        int frames[20], pages[20], numFrames, numPages, pageFaults = 0, currentIndex = 0;
+
+        // Input number of frames and pages
+        printf("Enter the number of frames: ");
+        scanf("%d", &numFrames);
+
+        printf("Enter the number of pages: ");
+        scanf("%d", &numPages);
+
+        // Input page references
+        printf("Enter the page references: ");
+        for (i = 0; i < numPages; i++)
+        {
+                scanf("%d", &pages[i]);
         }
-        for(i=0;i<f0;i++){
-                
-                f[i]=-1;
+
+        // Initialize frames with -1 (empty)
+        for (i = 0; i < numFrames; i++)
+        {
+                frames[i] = -1;
         }
-        for(i=0;i<p0;i++){
-                
-                flag =0;
-                for(k=0;k<f0;k++){
-                        if(p[i]==f[k]){
-                                flag = 1;
+
+        // Process page references and handle page replacement
+        for (i = 0; i < numPages; i++)
+        {
+                flag = 0;
+
+                // Check if page is already in a frame
+                for (k = 0; k < numFrames; k++)
+                {
+                        if (pages[i] == frames[k])
+                        {
+                                flag = 1; // Page found in frame
                                 break;
                         }
                 }
-                if(flag == 0){
-                        f[x]=p[i];
-                        x=(x+1)%f0;
-                        count = count+1;
+
+                if (flag == 0)
+                {
+                        frames[currentIndex] = pages[i];               // Replace frame content
+                        currentIndex = (currentIndex + 1) % numFrames; // Move to the next frame
+                        pageFaults++;                                  // Increase page fault count
                 }
-                printf("%d\t",p[i]);
-                for(j=0;j<f0;j++){
-                     printf("%d",f[j]);   
+
+                // Print current page reference and frame contents
+                printf("%d\t", pages[i]);
+                for (j = 0; j < numFrames; j++)
+                {
+                        printf("%d", frames[j]);
                 }
-                if(p[i]==f[k]){
+
+                // Print HIT or MISS based on page presence in frame
+                if (pages[i] == frames[k])
+                {
                         printf("\tHIT");
                 }
-                else{
+                else
+                {
                         printf("\tMISS");
                 }
                 printf("\n");
-                 
         }
-        printf("Page fault %d ",count);         
+
+        // Print total number of page faults
+        printf("Page faults: %d\n", pageFaults);
+
+        return 0;
 }
