@@ -33,21 +33,21 @@ void sort(int n)
 int main()
 {
 	int m,n,i,j;
-	printf("enter the number of Blocks");
+	printf("Enter the number of Blocks: ");
 	scanf("%d",&m);
 	for(i=0;i<m;i++)
 	{
 		B[i].id=i+1;
-		printf("enter the size of %d block",i+1);
+		printf("enter the size of block%d: ",i+1);
 		scanf("%d",&B[i].size);
 		B[i].alloc=0;
 	}
-	printf("enter the number of process");
+	printf("Enter the number of process: ");
 	scanf("%d",&n);
 	for(j=0;j<n;j++)
 	{
 		P[j].id=j+1;
-		printf("enter the size of %d process",j+1);
+		printf("Enter the size of process: %d: ",j+1);
 		scanf("%d",&P[j].size);
 		P[j].blockno=0;
 	}
@@ -81,3 +81,25 @@ int main()
 		
 		
 }
+/*
+Enter the number of Blocks: 5
+enter the size of block1: 20
+enter the size of block2: 100
+enter the size of block3: 40
+enter the size of block4: 200
+enter the size of block5: 10
+Enter the number of process: 4
+Enter the size of process: 1: 90
+Enter the size of process: 2: 50
+Enter the size of process: 3: 30
+Enter the size of process: 4: 40
+
+P_id	size	Blockno.	free size
+
+1	90	4		110
+
+2	50	4		60
+
+3	30	2		70
+
+4	40	2		30

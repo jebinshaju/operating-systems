@@ -72,3 +72,23 @@ int main()
 		printf("%d\t%d\t%d\t\t%d\n", P[i].id, P[i].size, P[i].blockno, P[i].frees);
 	}
 }
+
+/*
+Enter the number of Blocks: 5
+Enter the size of Block 1: 20
+Enter the size of Block 2: 100
+Enter the size of Block 3: 40
+Enter the size of Block 4: 200
+Enter the size of Block 5: 10
+Enter the number of Processes: 4
+Enter the size of Process 1: 90
+Enter the size of Process 2: 50
+Enter the size of Process 3: 30
+Enter the size of Process 4: 40
+
+P_id	size	Blockno.	free size
+1	90	2		10
+2	50	4		150
+3	30	3		10
+4	40	4		110
+
